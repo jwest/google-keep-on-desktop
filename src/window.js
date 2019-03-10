@@ -1,6 +1,7 @@
 const { BrowserWindow } = require('electron');
 const settings = require('electron-settings');
 const contextMenu = require('electron-context-menu');
+const windowStateKeeper = require('electron-window-state');
 const isDev = require('electron-is-dev');
 
 contextMenu({
@@ -11,19 +12,26 @@ contextMenu({
 	}]
 });
 
-
 const { DESKTOP_ICON } = require('./icon');
 
 function createWindow () {
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 612,
+    defaultHeight: 600,
+  });
+
   win = new BrowserWindow({ 
-    width: 612,
-    height: 600,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
     minWidth: 380,
     minHeight: 400,
-    // frame: false,
     icon: DESKTOP_ICON,
     titleBarStyle: 'hidden',
   });
+
+  mainWindowState.manage(win);
 
   win.setAlwaysOnTop(true);
   win.setVisibleOnAllWorkspaces(true);
@@ -35,7 +43,7 @@ function createWindow () {
 
   win.webContents.on('did-finish-load', () => {
     let content = win.webContents;
-    content.insertCSS('html body header[role="banner"] { top: 12px; }');
+    content.insertCSS('html body header[role="banner"] { padding-top: 12px; -webkit-app-region: drag; -webkit-user-select: none; }');
   });
 
   win.on('closed', () => {
