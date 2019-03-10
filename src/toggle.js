@@ -1,15 +1,15 @@
 let isWindowOpen = true;
 
 function toggle(onOpen, onClose) {
-  if (!isWindowOpen) {
-    onOpen();
-
-    isWindowOpen = true;
-  } else {
-    onClose();
-
-    isWindowOpen = false;
-  }
+  return () => {
+    if (!isWindowOpen) {
+        isWindowOpen = true;
+        onOpen();
+    } else {
+        isWindowOpen = false;
+        onClose();
+    }
+  };
 }
 
-module.exports = { toggle };
+module.exports = { toggleInit: toggle };

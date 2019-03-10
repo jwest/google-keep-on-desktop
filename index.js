@@ -1,15 +1,16 @@
-const { app, globalShortcut, Menu, Tray } = require('electron');
+const { app, globalShortcut, Tray } = require('electron');
 
 const { TRAY_ICON } = require('./src/icon');
 const { createWindow } = require('./src/window');
-const { toggle } = require('./src/toggle');
+const { toggleInit } = require('./src/toggle');
 
-const SHORTCUT_OPEN = 'CommandOrControl+`';
+const SHORTCUT_TOGGLE = 'CommandOrControl+`';
 
 let win = null;
 let tray = null;
 
 function onOpen() {
+  tray.setHighlightMode('always');
   win.show();
 
   setTimeout(() => win.focus(), 0);
@@ -19,30 +20,23 @@ function onOpen() {
 }
 
 function onClose() {
+  tray.setHighlightMode('never');
   win.hide();
 }
+
+const toggle = toggleInit(onOpen, onClose);
 
 app.on('ready', () => {
   try {
     tray = new Tray(TRAY_ICON);
-
-    const contextMenu = Menu.buildFromTemplate([
-      { label: 'Item1', type: 'radio' },
-      { label: 'Item2', type: 'radio' },
-      { label: 'Item3', type: 'radio', checked: true },
-      { label: 'Item4', type: 'radio' },
-    ]);
-
     tray.setToolTip('Google Keep Desktop');
-    tray.setContextMenu(contextMenu);
+    tray.on('click', () => toggle());
   } catch(e) {
     console.log(e);
   }
 
-  const ret = globalShortcut.register(SHORTCUT_OPEN, () => toggle(onOpen, onClose));
-
-  if (!ret) {
-    console.log('registration failed');
+  if (!globalShortcut.register(SHORTCUT_TOGGLE, () => toggle())) {
+    console.log(`Shortcut ${SHORTCUT_TOGGLE} registration failed`);
   }
 
   win = createWindow();
