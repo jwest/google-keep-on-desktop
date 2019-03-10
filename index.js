@@ -1,13 +1,13 @@
-const { app, globalShortcut } = require('electron');
+const { app, globalShortcut, Menu, Tray } = require('electron');
 
+const { TRAY_ICON } = require('./src/icon');
 const { createWindow } = require('./src/window');
 const { toggle } = require('./src/toggle');
 
 const SHORTCUT_OPEN = 'CommandOrControl+`';
 
-app.dock.hide();
-
-let win;
+let win = null;
+let tray = null;
 
 function onOpen() {
   win.show();
@@ -23,6 +23,22 @@ function onClose() {
 }
 
 app.on('ready', () => {
+  try {
+    tray = new Tray(TRAY_ICON);
+
+    const contextMenu = Menu.buildFromTemplate([
+      { label: 'Item1', type: 'radio' },
+      { label: 'Item2', type: 'radio' },
+      { label: 'Item3', type: 'radio', checked: true },
+      { label: 'Item4', type: 'radio' },
+    ]);
+
+    tray.setToolTip('Google Keep Desktop');
+    tray.setContextMenu(contextMenu);
+  } catch(e) {
+    console.log(e);
+  }
+
   const ret = globalShortcut.register(SHORTCUT_OPEN, () => toggle(onOpen, onClose));
 
   if (!ret) {
