@@ -1,19 +1,40 @@
-const { app, BrowserWindow } = require('electron');
+const { app, globalShortcut } = require('electron');
+
+const { createWindow } = require('./src/window');
+const { toggle } = require('./src/toggle');
+
+const SHORTCUT_OPEN = 'CommandOrControl+`';
+
+app.dock.hide();
 
 let win;
 
-function createWindow () {
-  win = new BrowserWindow({ width: 800, height: 600 })
+function onOpen() {
+  win.show();
 
-  win.loadFile('index.html');
-  win.webContents.openDevTools();
+  setTimeout(() => win.focus(), 0);
 
-  win.on('closed', () => {
-    win = null;
-  });
+  win.webContents.send('show-window');
+  win.webContents.sendInputEvent({ type: 'keyDown', modifiers: [], keyCode: 'C' });
 }
 
-app.on('ready', createWindow);
+function onClose() {
+  win.hide();
+}
+
+app.on('ready', () => {
+  const ret = globalShortcut.register(SHORTCUT_OPEN, () => toggle(onOpen, onClose));
+
+  if (!ret) {
+    console.log('registration failed');
+  }
+
+  win = createWindow();
+});
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -23,6 +44,6 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (win === null) {
-    createWindow();
+    win = createWindow();
   }
 });
