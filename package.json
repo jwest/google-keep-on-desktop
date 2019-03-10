@@ -1,0 +1,23 @@
+{
+  "name": "google-keep-on-desktop",
+  "version": "1.0.0",
+  "description": "helper for use Google Keep as standalone application with eg. global shortcuts",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwest/google-keep-on-desktop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jwest/google-keep-on-desktop/issues"
+  },
+  "homepage": "https://github.com/jwest/google-keep-on-desktop#readme",
+  "devDependencies": {
+    "electron": "^4.0.8"
+  }
+}
