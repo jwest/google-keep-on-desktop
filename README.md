@@ -1,5 +1,7 @@
 # Google keep on desktop
 
+[![Build Status](https://travis-ci.com/jwest/google-keep-on-desktop.svg?branch=master)](https://travis-ci.com/jwest/google-keep-on-desktop)
+
 Electron app for open Google Keep. Used for productivity, features:
 
  - [X] standalone application
