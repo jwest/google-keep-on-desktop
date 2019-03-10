@@ -10,3 +10,23 @@ Electron app for open Google Keep. Used for productivity, features:
 ## Usage
 
 @TODO
+
+## Development
+
+Clone repository
+
+```
+git clone https://github.com/jwest/google-keep-on-desktop.git
+```
+
+Start application
+
+```
+npm start
+```
+
+Testing
+
+```
+not yet
+```
