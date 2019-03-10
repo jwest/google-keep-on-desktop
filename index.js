@@ -1,22 +1,29 @@
 const { app, globalShortcut, Tray } = require('electron');
+const settings = require('electron-settings');
 
 const { TRAY_ICON } = require('./src/icon');
 const { createWindow } = require('./src/window');
 const { toggleInit } = require('./src/toggle');
 
-const SHORTCUT_TOGGLE = 'CommandOrControl+`';
+const SHORTCUT_TOGGLE_DEFAULT = 'CommandOrControl+`';
 
 let win = null;
 let tray = null;
+
+function focusOnCreateNote() {
+  setTimeout(() => win.focus(), 0);
+  win.webContents.sendInputEvent({
+    type: 'keyDown',
+    modifiers: [],
+    keyCode: 'C',
+  });
+}
 
 function onOpen() {
   tray.setHighlightMode('always');
   win.show();
 
-  setTimeout(() => win.focus(), 0);
-
-  win.webContents.send('show-window');
-  win.webContents.sendInputEvent({ type: 'keyDown', modifiers: [], keyCode: 'C' });
+  focusOnCreateNote();
 }
 
 function onClose() {
@@ -35,6 +42,7 @@ app.on('ready', () => {
     console.log(e);
   }
 
+  const SHORTCUT_TOGGLE = settings.get('shortcuts.toggle') || SHORTCUT_TOGGLE_DEFAULT;
   if (!globalShortcut.register(SHORTCUT_TOGGLE, () => toggle())) {
     console.log(`Shortcut ${SHORTCUT_TOGGLE} registration failed`);
   }
