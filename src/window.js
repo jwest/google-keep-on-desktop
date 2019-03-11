@@ -29,11 +29,14 @@ function createWindow () {
     minHeight: 400,
     icon: DESKTOP_ICON,
     titleBarStyle: 'hidden',
+    alwaysOnTop: true,
+    visibleOnAllWorkspaces: true,
+    transparent: true,
   });
 
   mainWindowState.manage(win);
 
-  win.setAlwaysOnTop(true);
+  win.setAlwaysOnTop(true, 'floating');
   win.setVisibleOnAllWorkspaces(true);
   win.loadURL('https://keep.google.com/');
 

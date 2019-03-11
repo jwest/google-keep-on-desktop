@@ -1,4 +1,4 @@
-# Google keep on desktop
+# Google Keep on desktop
 
 [![Build Status](https://travis-ci.com/jwest/google-keep-on-desktop.svg?branch=master)](https://travis-ci.com/jwest/google-keep-on-desktop)
 

@@ -33,6 +33,8 @@ function onClose() {
 
 const toggle = toggleInit(onOpen, onClose);
 
+app.dock.hide();
+
 app.on('ready', () => {
   try {
     tray = new Tray(TRAY_ICON);
