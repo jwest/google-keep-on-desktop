@@ -5,13 +5,13 @@
 Electron app for open Google Keep. Used for productivity, features:
 
  - [X] standalone application
- - [ ] global shortcuts
- - [ ] autofocus for create new note
- - [ ] always on top
+ - [X] global shortcuts (CommandOrControl + ` for toggle window)
+ - [X] autofocus for create new note
+ - [X] always on top
 
 ## Usage
 
-@TODO
+Download and install from latest release https://github.com/jwest/google-keep-on-desktop/releases
 
 ## Development
 
@@ -30,5 +30,5 @@ npm start
 Testing
 
 ```
-not yet
+npm test
 ```
