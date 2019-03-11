@@ -7,7 +7,6 @@ const isDev = require('electron-is-dev');
 contextMenu({
 	prepend: (params, browserWindow) => [{
 		label: 'Rainbow',
-		// Only show it when right-clicking images
 		visible: params.mediaType === 'image'
 	}]
 });
@@ -31,7 +30,6 @@ function createWindow () {
     titleBarStyle: 'hidden',
     alwaysOnTop: true,
     visibleOnAllWorkspaces: true,
-    transparent: true,
   });
 
   mainWindowState.manage(win);

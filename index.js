@@ -4,6 +4,7 @@ const settings = require('electron-settings');
 const { TRAY_ICON } = require('./src/icon');
 const { createWindow } = require('./src/window');
 const { toggleInit } = require('./src/toggle');
+const { menu } = require('./src/menu');
 
 const SHORTCUT_TOGGLE_DEFAULT = 'CommandOrControl+`';
 
@@ -50,6 +51,8 @@ app.on('ready', () => {
   }
 
   win = createWindow();
+
+  menu();
 });
 
 app.on('will-quit', () => {
