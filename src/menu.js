@@ -5,7 +5,6 @@ function menu() {
     label: "Application",
     submenu: [
       { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }},
-      { label: "Quit", accelerator: "Command+W", click: function() { app.quit(); }},
     ]}, {
     label: "Edit",
     submenu: [
