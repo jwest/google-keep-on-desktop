@@ -6,8 +6,10 @@ Electron app for open Google Keep. Used for productivity, features:
 
  - [X] standalone application
  - [X] global shortcuts (CommandOrControl + ` for toggle window)
+ - [X] create note from clipboard (CommandOrControl + Shift + `)
  - [X] autofocus for create new note
  - [X] always on top
+ - [X] icon in tray
 
 ## Usage
 
